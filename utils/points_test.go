@@ -80,7 +80,7 @@ func TestCalculatePoints(t *testing.T) {
 		},
 		{
 			// 4 points - retailer name
-			// Ceil(1.2 * 0.2) = 1 point - item description is a multiple of 3
+			// RoundUp(1.2 * 0.2) = 1 point - item description is a multiple of 3
 			name: "Item description length multiple of 3",
 			receipt: models.Receipt{
 				Retailer:     "Shop",
@@ -92,6 +92,42 @@ func TestCalculatePoints(t *testing.T) {
 				Total: "1.2",
 			},
 			expected: 5,
+		},
+		{
+			// case 3
+			// 9 points - retailer name
+			// 5 points - 2 items
+			// RoundUp(1.40 * 0.2) = 1 point - item description is a multiple of 3 (Dasani)
+			// total 15
+			name: "Item description length multiple of 3",
+			receipt: models.Receipt{
+				Retailer:     "Walgreens",
+				PurchaseDate: "2022-01-02",
+				PurchaseTime: "08:13",
+				Items: []models.Item{
+					{ShortDescription: "Pepsi - 12-oz", Price: "1.25"},
+					{ShortDescription: "Dasani", Price: "1.40"},
+				},
+				Total: "2.65",
+			},
+			expected: 15,
+		},
+		{
+			// case 4
+			// 6 points - retailer name
+			// 25 points - total is a multiple of 1.25
+			// total 31 points
+			name: "Item description length multiple of 3",
+			receipt: models.Receipt{
+				Retailer:     "Target",
+				PurchaseDate: "2022-01-02",
+				PurchaseTime: "13:13",
+				Items: []models.Item{
+					{ShortDescription: "Pepsi - 12-oz", Price: "1.25"},
+				},
+				Total: "1.25",
+			},
+			expected: 31,
 		},
 	}
 
