@@ -28,7 +28,13 @@ func main() {
 func processReceipt(w http.ResponseWriter, r *http.Request) {
 	var receipt models.Receipt
 	if err := json.NewDecoder(r.Body).Decode(&receipt); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "The receipt is invalid", http.StatusBadRequest)
+		return
+	}
+
+	// validate receipt regex patterns
+	if ok := utils.ValidateReceipt(receipt); !ok {
+		http.Error(w, "The receipt is invalid", http.StatusBadRequest)
 		return
 	}
 
@@ -47,7 +53,7 @@ func getPoints(w http.ResponseWriter, r *http.Request) {
 
 	points, exists := pointsMap[id]
 	if !exists {
-		http.Error(w, "Receipt not found", http.StatusNotFound)
+		http.Error(w, "No receipt found for that id", http.StatusNotFound)
 		return
 	}
 

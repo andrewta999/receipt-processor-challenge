@@ -99,7 +99,7 @@ func TestCalculatePoints(t *testing.T) {
 			// 5 points - 2 items
 			// RoundUp(1.40 * 0.2) = 1 point - item description is a multiple of 3 (Dasani)
 			// total 15
-			name: "Item description length multiple of 3",
+			name: "Morning Receipt",
 			receipt: models.Receipt{
 				Retailer:     "Walgreens",
 				PurchaseDate: "2022-01-02",
@@ -117,7 +117,7 @@ func TestCalculatePoints(t *testing.T) {
 			// 6 points - retailer name
 			// 25 points - total is a multiple of 1.25
 			// total 31 points
-			name: "Item description length multiple of 3",
+			name: "Simple Receipt",
 			receipt: models.Receipt{
 				Retailer:     "Target",
 				PurchaseDate: "2022-01-02",
