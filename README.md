@@ -1,3 +1,43 @@
+# Solution
+I provided an implementation in Go and used Docker to containerize the application. The main restapi implementation is located in `main.go`. Custom types are defined inside `models` package. The `utils` package contains functions to calculate point for a receipt and validate the format of a receipt.
+
+I'm using the following versions for building and testing the application
+
+`Go: 1.22.4`
+
+## How to run the app using Docker
+### Build the Docker image
+Run this docker command to build the image. The image name is `receipt-processor` and we tag version `local` to it.
+```
+docker build -t receipt-processor:local .
+```
+
+### Run the application using Docker
+Run this command to run a docker container with the image that you just built. Note that the application is running on port `8081`.
+```
+docker run -d -p 8081:8081 receipt-processor:local
+```
+
+### Test the app
+You can test multiple test cases by sending requests to `localhost:8081`
+
+## How to run unit tests
+Run this command to run all unit tests
+```
+go test ./...
+```
+
+## How to run the app locally (optional)
+### Install all dependencies
+```
+go mod download
+```
+
+### Run the application on port 801
+```
+go run main.go
+```
+
 # Receipt Processor
 
 Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
